@@ -1,75 +1,64 @@
 from pprint import pprint
 from flask_app import app, render_template, redirect, request, session
-# from flask_app.models.thing_model import Thing
+from flask_app.models.dojo_model import Dojo
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return redirect('/dojos')
 
-# display all things
-@app.get('/things')
-def all_things():
-    things = Thing.find_all()
-    print(f'**** FOUND - ALL THINGS: ****')
-    pprint(things)
-    return render_template('all_things.html', things = things)
+# display all dojos
+@app.get('/dojos')
+def all_dojos():
+    dojos = Dojo.find_all()
+    print(f'**** FOUND - ALL DOJOS: ****')
+    pprint(dojos)
+    return render_template('all_dojos.html', dojos = dojos)
 
-# display one thing by id
-@app.get('/things/<int:thing_id>')
-def one_thing(thing_id):
+# display one dojo by id
+@app.get('/dojos/<int:dojo_id>')
+def one_dojo(dojo_id):
     data = {
-        'id': thing_id
+        'id': dojo_id
     }
-    thing = Thing.find_by_id(data)
-    print(f'**** FOUND - THING ID: {thing.id} ****')
-    return render_template('one_thing.html', thing = thing)
+    dojo = Dojo.find_by_id(data)
+    print(f'**** FOUND - DOJO ID: {dojo.id} ****')
+    return render_template('one_dojo.html', dojo = dojo)
 
-# display form to create a thing
-@app.get('/things/new')
-def new_thing():
-    return render_template('new_thing.html')
+# display form to create a dojo
+@app.get('/dojos/new')
+def new_dojo():
+    return render_template('new_dojo.html')
 
-# process form and create a thing
-@app.post('/things')
-def create_thing():
+# process form and create a dojo
+@app.post('/dojos')
+def create_dojo():
+    dojo_id = Dojo.save(request.form)
+    print(f'**** CREATED - DOJO ID: {dojo_id} ****')
+    return redirect('/dojos')
+
+# display form to edit a dojo by id
+@app.get('/dojos/<int:dojo_id>/edit')
+def edit_dojo(dojo_id):
     data = {
-        'field1': request.form['field1'],
-        'field2': request.form['field2'],
-        'field3': request.form['field3']
+        'id': dojo_id
     }
-    thing_id = Thing.save(data)
-    print(f'**** CREATED - THING ID: {thing_id} ****')
-    return redirect('/things')
+    dojo = Dojo.find_by_id(data)
+    print(f'**** FOUND - DOJO ID: {dojo.id} ****')
+    return render_template('edit_dojo.html', dojo = dojo)
 
-# display form to edit a thing by id
-@app.get('/things/<int:thing_id>/edit')
-def edit_thing(thing_id):
-    data = {
-        'id': thing_id
-    }
-    thing = Thing.find_by_id(data)
-    print(f'**** FOUND - THING ID: {thing.id} ****')
-    return render_template('edit_thing.html', thing = thing)
+# process form and update a dojo by id
+@app.post('/dojos/<int:dojo_id>/update')
+def update_dojo(dojo_id):
+    Dojo.find_by_id_and_update(request.form)
+    print(f'**** UPDATED - DOJO ID: {dojo_id} ****')
+    return redirect(f'/dojos/{dojo_id}')
 
-# process form and update a thing by id
-@app.post('/things/<int:thing_id>/update')
-def update_thing(thing_id):
+# delete one dojo by id
+@app.get('/dojos/<int:dojo_id>/delete')
+def delete_dojo(dojo_id):
     data = {
-        'id': thing_id,
-        'field1': request.form['field1'],
-        'field2': request.form['field2'],
-        'field3': request.form['field3']
+        'id': dojo_id
     }
-    Thing.find_by_id_and_update(data)
-    print(f'**** UPDATED - THING ID: {thing_id} ****')
-    return redirect(f'/things/{thing_id}')
-
-# delete one thing by id
-@app.get('/things/<int:thing_id>/delete')
-def delete_thing(thing_id):
-    data = {
-        'id': thing_id
-    }
-    Thing.find_by_id_and_delete(data)
-    print(f'**** DELETED - THING ID: {thing_id} ****')
-    return redirect('/things')
+    Dojo.find_by_id_and_delete(data)
+    print(f'**** DELETED - DOJO ID: {dojo_id} ****')
+    return redirect('/dojos')
