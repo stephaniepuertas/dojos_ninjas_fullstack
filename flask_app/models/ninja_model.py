@@ -6,21 +6,20 @@ DATABASE = 'dojo_and_ninjas_schema_text'
 class Ninja:
     def __init__(self, data):
         self.id = data['id']
-        self.field1 = data['field1']
-        self.field2 = data['field2']
-        self.field3 = data['field3']
-        self.field4 = data['field4']
-        self.field5 = data['field5']
+        self.first_name = data['first_name']
+        self.last_name = data['last_name']
+        self.age = data['age']
+        self.dojo_id = data['dojo_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
     
     def __repr__(self):
-        return f'<Ninja: {self.field1}>'
+        return f'<Ninja: {self.first_name}>'
 
     # create a ninja
     @classmethod
     def save(cls, data):
-        query = 'INSERT INTO ninjas (field1, field2, field3, field4, field5) VALUES (%(field1)s, %(field2)s, %(field3)s, %(field4)s, %(field5)s);'
+        query = 'INSERT INTO ninjas (first_name, last_name, age, dojo_id) VALUES (%(first_name)s, %(last_name)s, %(age)s, %(dojo_id)s);'
         ninja_id = connectToMySQL(DATABASE).query_db(query, data)
         return ninja_id
 
@@ -45,7 +44,7 @@ class Ninja:
     # update one ninja by id
     @classmethod
     def find_by_id_and_update(cls, data):
-        query = 'UPDATE ninjas SET field1 = %(field1)s, field2 = %(field2)s, field3 = %(field3)s, field4 = %(field4)s, field5 = %(field5)s WHERE id = %(id)s;'
+        query = 'UPDATE ninjas SET first_name = %(first_name)s, last_name = %(last_name)s, age = %(age)s, dojo_id = %(dojo_id)s WHERE id = %(id)s;'
         connectToMySQL(DATABASE).query_db(query, data)
         return True
 
