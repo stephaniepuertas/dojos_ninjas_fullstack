@@ -1,4 +1,5 @@
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask_app.models.ninja_model import Ninja
 
 DATABASE = 'dojo_and_ninjas_schema_text'
 
@@ -38,29 +39,30 @@ class Dojo:
         dojo = Dojo(results[0])
         return dojo
 
-    # find one make by id with models
-    @classmethod
-    def find_by_id_with_models(cls, data):
-        query = 'SELECT * from makes LEFT JOIN models ON makes.id = models.make_id WHERE makes.id = %(id)s;'
-        results = connectToMySQL(DATABASE).query_db(query, data)
-        pprint(results)
-        make = Make(results[0])
-        if results[0]['make_id']:
-            for result in results:
-                data = {
-                    'id': result['models.id'],
-                    'name': result['models.name'],
-                    'created_at': result['created_at'],
-                    'updated_at': result['updated_at'],
-                    'make_id': result['make_id']
-                }
-                make.models.append(Model(data))
-        return make
+    # # find one make by id with models
+    # @classmethod
+    # def find_by_id_with_models(cls, data):
+    #     query = 'SELECT * from dojos LEFT JOIN ninjas ON dojos.id = models.ninjas_id WHERE dojos.id = %(id)s;'
+    #     results = connectToMySQL(DATABASE).query_db(query, data)
+    #     pprint(results)
+    #     dojo = Dojo(results[0])
+    #     if results[0]['dojo_id']:
+    #         for result in results:
+    #             data = {
+    #                 'id': result['dojo.id'],
+    #                 'name': result['dojo.name'],
+    #                 'created_at': result['created_at'],
+    #                 'updated_at': result['updated_at'],
+    #                 'make_id': result['make_id']
+    #             }
+    #             dojo.ninja.append(Ninja(data))
+    #     return dojo
+
 
     # update one dojo by id
     @classmethod
     def find_by_id_and_update(cls, data):
-        query = 'UPDATE dojos SET field1 = %(field1)s, field2 = %(field2)s, field3 = %(field3)s, field4 = %(field4)s, field5 = %(field5)s WHERE id = %(id)s;'
+        query = 'UPDATE dojos SET name = %(name)s, created_at = %(created_at)s, updated_at = %(updated_at)s;'
         connectToMySQL(DATABASE).query_db(query, data)
         return True
 
