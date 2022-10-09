@@ -57,9 +57,9 @@ class Dojo:
                     'age': result['ninja.age'],
                     'created_at': result['created_at'],
                     'updated_at': result['updated_at'],
-                    'make_id': result['make_id']
+                    'dojo_id': result['dojo_id']
                 }
-                dojo.ninjas.append(Ninja(data))
+                dojo.models.append(Ninja(data))
         return dojo
 
 
