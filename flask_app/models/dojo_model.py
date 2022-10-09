@@ -1,3 +1,4 @@
+from pprint import pprint
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.models.ninja_model import Ninja
 
@@ -50,13 +51,15 @@ class Dojo:
         if results[0]['dojo_id']:
             for result in results:
                 data = {
-                    'id': result['dojo.id'],
-                    'name': result['dojo.name'],
+                    'id': result['ninja.id'],
+                    'first_name': result['ninja.first_name'],
+                    'last_name': result['ninja.last_name'],
+                    'age': result['ninja.age'],
                     'created_at': result['created_at'],
                     'updated_at': result['updated_at'],
                     'make_id': result['make_id']
                 }
-                dojo.ninja.append(Ninja(data))
+                dojo.ninjas.append(Ninja(data))
         return dojo
 
 

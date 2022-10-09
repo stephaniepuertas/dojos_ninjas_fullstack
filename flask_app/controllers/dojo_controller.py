@@ -1,6 +1,7 @@
 from pprint import pprint
 from flask_app import app, render_template, redirect, request, session
 from flask_app.models.dojo_model import Dojo
+from flask_app.models.ninja_model import Ninja
 
 @app.route('/')
 def index():
@@ -22,7 +23,7 @@ def one_dojo(dojo_id):
     }
     dojo = Dojo.find_by_id(data)
     print(f'**** FOUND - DOJO ID: {dojo.id} ****')
-    return render_template('one_dojo.html', dojo = dojo)
+    return render_template('one_dojo.html', dojo=dojo)
 
 # display form to create a ninja
 @app.get('/dojos/new')
