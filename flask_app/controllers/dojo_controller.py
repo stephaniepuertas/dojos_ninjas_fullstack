@@ -1,7 +1,6 @@
 from pprint import pprint
-from flask_app import app, render_template, redirect, request, session
+from flask_app import app, render_template, redirect, request
 from flask_app.models.dojo_model import Dojo
-from flask_app.models.ninja_model import Ninja
 
 @app.route('/')
 def index():

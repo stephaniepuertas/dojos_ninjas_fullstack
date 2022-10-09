@@ -54,6 +54,7 @@
                                     <div class="col-md-6 mb-4">
                                         <form action="/ninjas" method="post">
                                             <div class="mb-3  mb-4">
+                                            <!-- added drop down to see your foreign key -->
                                                 <select name="dojo_id" id="dojo_id" class="form-select">
                                                     {% for dojo in dojos %}
                                                     <option value="{{ dojo.id }}">{{dojo.name}}</option>

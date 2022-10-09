@@ -1,6 +1,7 @@
 from pprint import pprint
-from flask_app import app, render_template, redirect, request, session
+from flask_app import app, render_template, redirect, request
 from flask_app.models.ninja_model import Ninja
+# need to add dojo here because we are trying to import dojos in here
 from flask_app.models.dojo_model import Dojo
 
 # display all ninjas
@@ -21,7 +22,7 @@ def one_ninja(ninja_id):
     print(f'**** FOUND - NINJA ID: {ninja.id} ****')
     return render_template('one_ninja.html', ninja = ninja)
 
-# here is where we add the connection with dojo
+# here is where we add the connection with dojo--------important
 # display form to create a ninja
 @app.get('/ninjas/new')
 def new_ninja():

@@ -26,7 +26,7 @@ class Ninja:
     # find all ninjas (no data needed)
     @classmethod
     def find_all(cls):
-        query = 'SELECT * from ninjas;'
+        query = 'SELECT * FROM ninjas;'
         results = connectToMySQL(DATABASE).query_db(query)
         ninjas = []
         for result in results:
@@ -36,7 +36,7 @@ class Ninja:
     # find one ninja by id
     @classmethod
     def find_by_id(cls, data):
-        query = 'SELECT * from ninjas WHERE id = %(id)s;'
+        query = 'SELECT * FROM ninjas WHERE id = %(id)s;'
         results = connectToMySQL(DATABASE).query_db(query, data)
         ninja = Ninja(results[0])
         return ninja

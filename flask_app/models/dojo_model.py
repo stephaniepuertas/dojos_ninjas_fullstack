@@ -26,7 +26,7 @@ class Dojo:
     # find all dojos (no data needed)
     @classmethod
     def find_all(cls):
-        query = 'SELECT * from dojos;'
+        query = 'SELECT * FROM dojos;'
         results = connectToMySQL(DATABASE).query_db(query)
         dojos = []
         for result in results:
@@ -36,7 +36,7 @@ class Dojo:
     # find one dojo by id
     @classmethod
     def find_by_id(cls, data):
-        query = 'SELECT * from dojos WHERE id = %(id)s;'
+        query = 'SELECT * FROM dojos WHERE id = %(id)s;'
         results = connectToMySQL(DATABASE).query_db(query, data)
         dojo = Dojo(results[0])
         return dojo
@@ -44,7 +44,7 @@ class Dojo:
     # find one make by id with models
     @classmethod
     def find_by_id_with_models(cls, data):
-        query = 'SELECT * from dojos LEFT JOIN ninjas ON dojos.id = models.ninjas_id WHERE dojos.id = %(id)s;'
+        query = 'SELECT * FROM dojos LEFT JOIN ninjas ON dojos.id = models.ninjas_id WHERE dojos.id = %(id)s;'
         results = connectToMySQL(DATABASE).query_db(query, data)
         pprint(results)
         dojo = Dojo(results[0])
