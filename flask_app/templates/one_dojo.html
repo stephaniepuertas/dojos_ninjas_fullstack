@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
         <div class="container">
-            <a class="navbar-brand" href="#">All Existing Dojos</a>
+            <a class="navbar-brand" href="#">All Ninjas</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -35,19 +35,21 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Dojo Id</th>
-                            <th>Name</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
                             <th>Created_At</th>
                             <th>Updated_At</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for dojo in dojos %}
+                        {% for ninja in ninjas %}
                         <tr>
-                            <td>{{ dojo.id }}</td>
-                            <td>{{ dojo.name }}</td>
-                            <td>{{ dojo.created_at }}</td>
-                            <td>{{ dojo.updated_at }}</td>
+                            <td>{{ ninja.first_name }}</td>
+                            <td>{{ ninja.last_name }}</td>
+                            <td>{{ ninja.age }}</td>
+                            <td>{{ ninja.created_at }}</td>
+                            <td>{{ ninja.updated_at }}</td>
                             <td>
                                 <a href="/dojos/{{ dojo.id }}">View</a>
                                 <a href="/dojos/{{ dojo.id }}/edit">Edit</a>
@@ -57,6 +59,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <a href="/dojos">Go Back</a>
             </div>
         </div>
     </main>

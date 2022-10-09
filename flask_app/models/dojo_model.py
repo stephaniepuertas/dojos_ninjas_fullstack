@@ -1,7 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.models.ninja_model import Ninja
 
-DATABASE = 'dojo_and_ninjas_schema_text'
+DATABASE = 'dojo_and_ninjas_schemas'
 
 
 class Dojo:
@@ -10,6 +10,7 @@ class Dojo:
         self.name = data['name']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.ninjas=[]
 
     def __repr__(self):
         return f'<Dojo: {self.name}>'
@@ -17,7 +18,7 @@ class Dojo:
     # create a dojo
     @classmethod
     def save(cls, data):
-        query = 'INSERT INTO dojos (name, created_at, updated_at) VALUES (%(name)s, %(created_at)s, %(updated_at)s;'
+        query = 'INSERT INTO dojos (name) VALUES (%(name)s);'
         dojo_id = connectToMySQL(DATABASE).query_db(query, data)
         return dojo_id
 
@@ -39,24 +40,24 @@ class Dojo:
         dojo = Dojo(results[0])
         return dojo
 
-    # # find one make by id with models
-    # @classmethod
-    # def find_by_id_with_models(cls, data):
-    #     query = 'SELECT * from dojos LEFT JOIN ninjas ON dojos.id = models.ninjas_id WHERE dojos.id = %(id)s;'
-    #     results = connectToMySQL(DATABASE).query_db(query, data)
-    #     pprint(results)
-    #     dojo = Dojo(results[0])
-    #     if results[0]['dojo_id']:
-    #         for result in results:
-    #             data = {
-    #                 'id': result['dojo.id'],
-    #                 'name': result['dojo.name'],
-    #                 'created_at': result['created_at'],
-    #                 'updated_at': result['updated_at'],
-    #                 'make_id': result['make_id']
-    #             }
-    #             dojo.ninja.append(Ninja(data))
-    #     return dojo
+    # find one make by id with models
+    @classmethod
+    def find_by_id_with_models(cls, data):
+        query = 'SELECT * from dojos LEFT JOIN ninjas ON dojos.id = models.ninjas_id WHERE dojos.id = %(id)s;'
+        results = connectToMySQL(DATABASE).query_db(query, data)
+        pprint(results)
+        dojo = Dojo(results[0])
+        if results[0]['dojo_id']:
+            for result in results:
+                data = {
+                    'id': result['dojo.id'],
+                    'name': result['dojo.name'],
+                    'created_at': result['created_at'],
+                    'updated_at': result['updated_at'],
+                    'make_id': result['make_id']
+                }
+                dojo.ninja.append(Ninja(data))
+        return dojo
 
 
     # update one dojo by id

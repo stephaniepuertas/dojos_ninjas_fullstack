@@ -24,10 +24,10 @@ def one_dojo(dojo_id):
     print(f'**** FOUND - DOJO ID: {dojo.id} ****')
     return render_template('one_dojo.html', dojo = dojo)
 
-# display form to create a dojo
+# display form to create a ninja
 @app.get('/dojos/new')
 def new_dojo():
-    return render_template('new_dojo.html')
+    return render_template('new_ninja.html')
 
 # process form and create a dojo
 @app.post('/dojos')
