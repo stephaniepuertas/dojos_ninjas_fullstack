@@ -14,6 +14,11 @@ def all_dojos():
     pprint(dojos)
     return render_template('all_dojos.html', dojos = dojos)
 
+@app.post('/dojos')
+def create_dojo():
+    Dojo.save(request.form)
+    return redirect('/dojos')
+
 # display one dojo by id
 @app.get('/dojos/<int:dojo_id>')
 def one_dojo(dojo_id):
