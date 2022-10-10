@@ -32,34 +32,40 @@
     <main class="container">
         <div class="row">
             <div class="col">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Age</th>
-                            <th>Created_At</th>
-                            <th>Updated_At</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for ninja in ninjas %}
-                        <tr>
-                            <td>{{ ninja.first_name }}</td>
-                            <td>{{ ninja.last_name }}</td>
-                            <td>{{ ninja.age }}</td>
-                            <td>{{ ninja.created_at }}</td>
-                            <td>{{ ninja.updated_at }}</td>
-                            <td>
-                                <a href="/dojos/{{ dojo.id }}">View</a>
-                                <a href="/dojos/{{ dojo.id }}/edit">Edit</a>
-                                <a href="/dojos/{{ dojo.id }}/delete">Delete</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <a href="/dojos">Go Back</a>
+                <div class="card">
+                    <div class="cardheader"> All Ninjas in Dojo</div>
+                    <div class="card-body">
+                        <h4> {{dojo.name}}</h4>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Age</th>
+                                <th>Created_At</th>
+                                <th>Updated_At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ninja in ninjas %}
+                            <tr>
+                                <td>{{ ninja.first_name }}</td>
+                                <td>{{ ninja.last_name }}</td>
+                                <td>{{ ninja.age }}</td>
+                                <td>{{ ninja.created_at }}</td>
+                                <td>{{ ninja.updated_at }}</td>
+                                <td>
+                                    <a href="/dojos/{{ dojo.id }}">View</a>
+                                    <a href="/dojos/{{ dojo.id }}/edit">Edit</a>
+                                    <a href="/dojos/{{ dojo.id }}/delete">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <a href="/dojos">Go Back</a>
+                </div>
             </div>
         </div>
     </main>
