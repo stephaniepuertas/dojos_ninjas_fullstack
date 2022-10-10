@@ -44,22 +44,24 @@ class Dojo:
     # find one make by id with models
     @classmethod
     def find_by_id_with_models(cls, data):
-        query = 'SELECT * FROM dojos LEFT JOIN ninjas ON dojos.id = models.ninjas_id WHERE dojos.id = %(id)s;'
+        query = 'SELECT * FROM dojos LEFT JOIN ninjas ON dojos.id = ninjas.dojo_id WHERE dojos.id = %(id)s;'
         results = connectToMySQL(DATABASE).query_db(query, data)
+        print('hello world')
         pprint(results)
         dojo = Dojo(results[0])
         if results[0]['dojo_id']:
             for result in results:
                 data = {
-                    'id': result['ninja.id'],
-                    'first_name': result['ninja.first_name'],
-                    'last_name': result['ninja.last_name'],
-                    'age': result['ninja.age'],
+                    'id': result['id'],
+                    'first_name': result['first_name'],
+                    'last_name': result['last_name'],
+                    'age': result['age'],
                     'created_at': result['created_at'],
                     'updated_at': result['updated_at'],
                     'dojo_id': result['dojo_id']
                 }
-                dojo.models.append(Ninja(data))
+                dojo.ninjas.append(Ninja(data))
+                # print (dojo.ninjas)
         return dojo
 
 

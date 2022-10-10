@@ -20,21 +20,11 @@ def one_dojo(dojo_id):
     data = {
         'id': dojo_id
     }
-    dojo = Dojo.find_by_id(data)
+    # need to use the correct methods to obtain the correct id with model!!!!!!!!!!!
+    dojo = Dojo.find_by_id_with_models(data)
     print(f'**** FOUND - DOJO ID: {dojo.id} ****')
     return render_template('one_dojo.html', dojo=dojo)
 
-# # display form to create a ninja
-@app.get('/dojos/new')
-def new_dojo():
-    return render_template('new_dojo.html')
-
-# process form and create a dojo
-@app.post('/dojos')
-def create_dojo():
-    dojo_id = Dojo.save(request.form)
-    print(f'**** CREATED - DOJO ID: {dojo_id} ****')
-    return redirect('/dojos')
 
 # display form to edit a dojo by id
 @app.get('/dojos/<int:dojo_id>/edit')

@@ -19,6 +19,7 @@ class Ninja:
     # create a ninja
     @classmethod
     def save(cls, data):
+        print ('hello world')
         query = 'INSERT INTO ninjas (first_name, last_name, age, dojo_id) VALUES (%(first_name)s, %(last_name)s, %(age)s, %(dojo_id)s);'
         ninja_id = connectToMySQL(DATABASE).query_db(query, data)
         return ninja_id
